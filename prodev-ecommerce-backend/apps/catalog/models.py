@@ -27,6 +27,13 @@ class Product(models.Model):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        indexes = [
+            models.Index(fields=['price'], name='idx_product_price'),
+            models.Index(fields=['category', 'price'], name='idx_product_cat_price'),
+            models.Index(fields=['is_active', '-created_at'], name='idx_product_active_date'),
+        ]
 
     def save(self, *args, **kwargs):
         if not self.slug:

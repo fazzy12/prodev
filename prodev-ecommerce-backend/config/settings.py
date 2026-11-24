@@ -73,9 +73,22 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@{config('DB_HOST', default='localhost')}:{config('DB_PORT', default='5432')}/{config('DB_NAME')}",
+#         conn_max_age=600,
+#     )
+# }
+
 DATABASES = {
     'default': dj_database_url.config(
-        default=f"postgres://{config('DB_USER')}:{config('DB_PASSWORD')}@{config('DB_HOST', default='localhost')}:{config('DB_PORT', default='5432')}/{config('DB_NAME')}",
+        default=(
+            f"postgres://{config('DB_USER', default='postgres')}:"
+            f"{config('DB_PASSWORD', default='')}@"
+            f"{config('DB_HOST', default='localhost')}:"
+            f"{config('DB_PORT', default='5432')}/"
+            f"{config('DB_NAME', default='ecommerce_db')}"
+        ),
         conn_max_age=600,
     )
 }
